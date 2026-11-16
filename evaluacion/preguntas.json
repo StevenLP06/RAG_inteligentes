@@ -1,0 +1,112 @@
+{
+  "descripcion": "Conjunto de evaluación fijado ANTES de las corridas finales. 3 directas (un documento), 3 que combinan al menos dos documentos y 3 sin respuesta en el corpus. 'evidencia[].texto' es copia literal del pasaje necesario; 'hechos_clave' son los datos que debe contener una respuesta correcta y completa (cada hecho admite alternativas equivalentes) y se usan solo para la pre-valoración automática, que el equipo revisa manualmente.",
+  "version": "1.0",
+  "fecha_fijacion": "2026-11-12",
+  "preguntas": [
+    {
+      "id": "D1",
+      "tipo": "directa",
+      "pregunta": "¿Qué debo hacer si el cliente VPN me muestra el error VPN-809?",
+      "respuesta_esperada": "El error VPN-809 indica que la red bloquea el tráfico IPsec. Hay que cambiar el modo de túnel a SSL/TLS en Configuración > Avanzado > Modo de túnel y volver a conectarse; si persiste, conectarse desde otra red (por ejemplo, los datos móviles del teléfono).",
+      "evidencia": [
+        {"archivo": "manual_vpn_acceso_remoto.pdf", "ubicacion": "pág. 3, sección 5 «Errores frecuentes y solución», párrafo del error VPN-809",
+         "texto": "Cambie el modo de túnel a SSL/TLS en Configuración > Avanzado > Modo de túnel y vuelva a conectarse."},
+        {"archivo": "manual_vpn_acceso_remoto.pdf", "ubicacion": "pág. 3, sección 5, mismo párrafo",
+         "texto": "Si el error persiste, conéctese desde otra red, por ejemplo la red de datos del teléfono."}
+      ],
+      "hechos_clave": [["ssl/tls", "ssl"], ["otra red", "datos del telefono", "datos moviles"]]
+    },
+    {
+      "id": "D2",
+      "tipo": "directa",
+      "pregunta": "¿Después de cuántos intentos fallidos se bloquea una cuenta y durante cuánto tiempo permanece bloqueada?",
+      "respuesta_esperada": "La cuenta se bloquea tras 5 intentos fallidos de inicio de sesión en un lapso de 10 minutos, y el bloqueo dura 30 minutos (luego se desbloquea sola).",
+      "evidencia": [
+        {"archivo": "politica_cuentas_contrasenas.docx", "ubicacion": "§ 4 «Bloqueo de cuenta», ¶1",
+         "texto": "Una cuenta se bloquea automáticamente cuando se registran 5 intentos fallidos de inicio de sesión en un lapso de 10 minutos."},
+        {"archivo": "politica_cuentas_contrasenas.docx", "ubicacion": "§ 4 «Bloqueo de cuenta», ¶2",
+         "texto": "El bloqueo dura 30 minutos; pasado ese tiempo la cuenta se desbloquea sola sin intervención de nadie."}
+      ],
+      "hechos_clave": [["5 intentos", "cinco intentos"], ["10 minutos", "diez minutos"], ["30 minutos", "treinta minutos"]]
+    },
+    {
+      "id": "D3",
+      "tipo": "directa",
+      "pregunta": "¿Cuál es el tamaño máximo de un adjunto de correo y qué alternativa tengo para enviar archivos más grandes?",
+      "respuesta_esperada": "El tamaño máximo de un mensaje con sus adjuntos es 25 MB; para archivos más grandes se deben subir a AndinaDrive y enviar un enlace de uso compartido.",
+      "evidencia": [
+        {"archivo": "faq_correo_impresion.md", "ubicacion": "sección «Correo electrónico > ¿Cuál es el tamaño máximo de un adjunto?», línea 17",
+         "texto": "El tamaño máximo de un mensaje, incluidos sus adjuntos, es de 25 MB. Para compartir archivos más grandes, súbalos a AndinaDrive y envíe un enlace de uso compartido en lugar del adjunto."}
+      ],
+      "hechos_clave": [["25 mb"], ["andinadrive"]]
+    },
+    {
+      "id": "M1",
+      "tipo": "multidocumento",
+      "pregunta": "Un teletrabajador tiene su cuenta bloqueada y por eso no puede conectarse a la VPN. ¿Qué prioridad debe asignarle la Mesa de Ayuda al caso, cuáles son los tiempos de respuesta y de resolución, y cuánto dura el bloqueo si no se hace nada?",
+      "respuesta_esperada": "Es un caso P2 (Alta): tiempo de respuesta de 30 minutos y de resolución de 8 horas hábiles. Si no se hace nada, el bloqueo dura 30 minutos y la cuenta se desbloquea sola.",
+      "evidencia": [
+        {"archivo": "catalogo_servicios_sla.md", "ubicacion": "sección «2. Matriz de prioridades», fila P2 de la tabla (línea 18)",
+         "texto": "| P2 Alta | Un usuario individual no puede trabajar y no existe alternativa | 30 minutos | 8 horas hábiles |"},
+        {"archivo": "catalogo_servicios_sla.md", "ubicacion": "sección «2. Matriz de prioridades», línea 22",
+         "texto": "Ejemplos de P2: cuenta bloqueada de un usuario que no puede iniciar sesión, teletrabajador sin acceso a la VPN"},
+        {"archivo": "politica_cuentas_contrasenas.docx", "ubicacion": "§ 4 «Bloqueo de cuenta», ¶2",
+         "texto": "El bloqueo dura 30 minutos; pasado ese tiempo la cuenta se desbloquea sola sin intervención de nadie."}
+      ],
+      "hechos_clave": [["p2"], ["30 minutos"], ["8 horas"], ["desbloquea", "se libera", "automaticamente"]]
+    },
+    {
+      "id": "M2",
+      "tipo": "multidocumento",
+      "pregunta": "Restablecí mi contraseña en el portal de autoservicio y ahora la VPN me muestra el error VPN-401. ¿Por qué puede estar ocurriendo y qué debo hacer?",
+      "respuesta_esperada": "La contraseña nueva puede tardar hasta 15 minutos en propagarse a todos los sistemas, así que la VPN puede rechazarla mientras tanto: conviene esperar antes de reintentar para no acumular intentos fallidos. Además, hay que actualizar la contraseña guardada en el perfil de NovaConnect, porque el cliente sigue enviando la anterior (y verificar que el usuario se escribe sin dominio).",
+      "evidencia": [
+        {"archivo": "politica_cuentas_contrasenas.docx", "ubicacion": "§ 5 «Restablecimiento de contraseña por autoservicio», ¶3",
+         "texto": "La nueva contraseña se propaga a todos los sistemas en un tiempo de hasta 15 minutos."},
+        {"archivo": "manual_vpn_acceso_remoto.pdf", "ubicacion": "pág. 3, sección 5, párrafo del error VPN-401",
+         "texto": "Si cambió su contraseña recientemente, actualice la contraseña guardada en el perfil de NovaConnect, porque el cliente sigue enviando la contraseña anterior."}
+      ],
+      "hechos_clave": [["15 minutos", "quince minutos"], ["guardada", "perfil de novaconnect", "perfil"]]
+    },
+    {
+      "id": "M3",
+      "tipo": "multidocumento",
+      "pregunta": "Mi buzón de correo está casi lleno y ya no puedo enviar mensajes. ¿A partir de qué tamaño ocurre esto y cómo solicito un aumento de cuota, hasta cuánto se puede ampliar y en cuánto tiempo se atiende?",
+      "respuesta_esperada": "El envío se bloquea al llegar a 49,5 GB (la cuota es de 50 GB). El aumento se solicita en el portal de soporte (Correo > Aumento de cuota), requiere aprobación del jefe inmediato, se puede ampliar hasta 100 GB y se atiende en 3 días hábiles después de aprobado.",
+      "evidencia": [
+        {"archivo": "faq_correo_impresion.md", "ubicacion": "sección «Correo electrónico > ¿Cuánto espacio tiene mi buzón?», línea 11",
+         "texto": "Al llegar a 49,5 GB el usuario ya no puede enviar mensajes, aunque todavía puede recibirlos."},
+        {"archivo": "catalogo_servicios_sla.md", "ubicacion": "sección «3.1 Aumento de cuota de buzón», línea 28",
+         "texto": "Requiere la aprobación del jefe inmediato del usuario. La cuota puede ampliarse hasta un máximo de 100 GB por buzón. Una vez aprobada, la solicitud se atiende en un plazo de 3 días hábiles."}
+      ],
+      "hechos_clave": [["49,5 gb", "49.5 gb", "49,5"], ["jefe"], ["100 gb"], ["3 dias habiles", "tres dias habiles"]]
+    },
+    {
+      "id": "U1",
+      "tipo": "sin_respuesta",
+      "pregunta": "¿Cuánto cuesta la licencia del cliente VPN NovaConnect por usuario?",
+      "respuesta_esperada": "No hay información en el corpus; el sistema debe abstenerse.",
+      "justificacion": "Ningún documento menciona costos, precios ni licenciamiento de NovaConnect. El manual de VPN solo trata requisitos, instalación, conexión y errores.",
+      "evidencia": [],
+      "hechos_clave": []
+    },
+    {
+      "id": "U2",
+      "tipo": "sin_respuesta",
+      "pregunta": "¿Qué velocidad mínima de conexión a Internet necesito en casa para teletrabajar con la VPN?",
+      "respuesta_esperada": "No hay información en el corpus; el sistema debe abstenerse (puede señalar que la conexión del hogar está fuera del alcance de la Mesa de Ayuda).",
+      "justificacion": "Los requisitos de la VPN (manual, sección 2) son de sistema operativo, versión del cliente, cuenta, MFA y antivirus; no hay ninguna cifra de ancho de banda. El catálogo (sección 5) solo dice que la conexión a Internet del hogar está fuera del alcance.",
+      "evidencia": [],
+      "hechos_clave": []
+    },
+    {
+      "id": "U3",
+      "tipo": "sin_respuesta",
+      "pregunta": "¿Cuál es el procedimiento para restaurar una base de datos del ERP a partir de las copias de seguridad?",
+      "respuesta_esperada": "No hay información en el corpus; el sistema debe abstenerse.",
+      "justificacion": "El único contenido sobre copias de seguridad (guía de seguridad, sección 4) trata la recuperación de archivos de usuario en AndinaDrive, no de bases de datos ni del ERP. Es un distractor cercano: una respuesta que use ese procedimiento sería incorrecta y sin respaldo.",
+      "evidencia": [],
+      "hechos_clave": []
+    }
+  ]
+}
