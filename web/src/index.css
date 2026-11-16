@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-ink-950: #07070b;
+  --color-ink-900: #0c0c13;
+  --color-ink-850: #11111a;
+  --color-ink-800: #161621;
+  --color-ink-700: #22222f;
+  --color-ink-600: #31313f;
+
+  --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
+  --animate-shimmer: shimmer 2.2s linear infinite;
+  --animate-word-in: word-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-border-spin: border-spin 4s linear infinite;
+
+  @keyframes spotlight {
+    0% { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
+    100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
+  @keyframes word-in {
+    from { opacity: 0; filter: blur(6px); transform: translateY(2px); }
+    to { opacity: 1; filter: blur(0); transform: none; }
+  }
+  @keyframes border-spin {
+    to { --border-angle: 360deg; }
+  }
+}
+
+/* Ángulo animable para el borde giratorio (estilo "moving border" de Aceternity, solo CSS). */
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-ink-950 font-sans text-zinc-200 antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: rgb(139 92 246 / 0.35); }
+  * { scrollbar-width: thin; scrollbar-color: var(--color-ink-600) transparent; }
+  :focus-visible { outline: 2px solid rgb(167 139 250 / 0.8); outline-offset: 2px; }
+}
+
+@layer components {
+  /* Fondo de cuadrícula con desvanecimiento radial (Aceternity "Grid background"). */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 100%);
+  }
+
+  .text-shimmer {
+    background: linear-gradient(90deg, #71717a 0%, #71717a 40%, #e4e4e7 50%, #71717a 60%, #71717a 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    @apply animate-shimmer;
+  }
+
+  /* Tarjeta con foco de luz que sigue al puntero (Aceternity "Card spotlight", sin re-render). */
+  .card-spotlight { position: relative; isolation: isolate; }
+  .card-spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgb(139 92 246 / 0.12), transparent 60%);
+  }
+  .card-spotlight:hover::before { opacity: 1; }
+
+  /* Borde con gradiente giratorio (Aceternity "Moving border"). */
+  .moving-border {
+    --border-angle: 0deg;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--color-ink-850), var(--color-ink-850)) padding-box,
+      conic-gradient(from var(--border-angle), rgb(255 255 255 / 0.08) 0%, #a78bfa 12%, #22d3ee 22%, rgb(255 255 255 / 0.08) 34%) border-box;
+    @apply animate-border-spin;
+  }
+
+  .cite-chip {
+    @apply mx-0.5 inline-flex h-[1.15rem] -translate-y-px cursor-pointer items-center rounded-md border border-violet-400/25 bg-violet-400/10 px-1.5 align-middle font-mono text-[0.68rem] font-medium text-violet-200 transition-colors hover:border-violet-300/60 hover:bg-violet-400/25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.cite-chip[data-invalid] {
+  border-color: rgb(251 191 36 / 0.3);
+  background: rgb(251 191 36 / 0.1);
+  color: rgb(253 230 138);
+}
